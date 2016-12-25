@@ -53,7 +53,6 @@
             this.Column1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.penBox = new System.Windows.Forms.PictureBox();
             this.brushBox = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -63,7 +62,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.eraserBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.penBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.brushBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // imageList1
@@ -300,18 +298,6 @@
             this.brushBox.TabStop = false;
             this.brushBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Location = new System.Drawing.Point(74, 98);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(321, 296);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(17, 273);
@@ -338,7 +324,6 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.penBox);
             this.Controls.Add(this.brushBox);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.Control;
             this.MainMenuStrip = this.menuStrip1;
@@ -355,15 +340,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.eraserBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.penBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.brushBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox brushBox;
         private System.Windows.Forms.PictureBox penBox;

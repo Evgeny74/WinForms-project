@@ -17,9 +17,21 @@ namespace WinFormsProject
         private List<Image> bitmaps = new List<Image>();
         private int count = 0;
         private Point point = new Point(-1,-1);
+        private ImageBox pictureBox1;
         public Form1()
         {
-            
+            pictureBox1 = new ImageBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.Location = new System.Drawing.Point(74, 98);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(321, 296);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
+            this.Controls.Add(this.pictureBox1);
             InitializeComponent();
             
             dataGridView1.Rows.Add();
@@ -57,22 +69,24 @@ namespace WinFormsProject
                 {
                     if (logic.GetDrawingItem() == DrawingItem.Rectangle)
                     {
-                        /*using (Graphics graphics = pictureBox1.CreateGraphics())
+                        using (Graphics graphics = pictureBox1.CreateGraphics())
                         {
-                            if (point.X != e.X && point.Y != e.Y)
-                            {
                                 point.X = e.X;
                                 point.Y = e.Y;
-                                pictureBox1.Invalidate();
                                 Point lastPoint = logic.getLastPoint();
                                 int x = Math.Min(lastPoint.X, e.X),
                                     y = Math.Min(lastPoint.Y, e.Y);
-                                graphics.DrawRectangle(logic.getPen(), x, y, Math.Abs(e.X - lastPoint.X),
-                                    Math.Abs(e.Y - lastPoint.Y));
-                            }
-                        }*/
-                        logic.draw(e);
-                        pictureBox1.Refresh();
+                                pictureBox1.setRectangle(new Rectangle(x,y, Math.Abs(e.X - lastPoint.X), Math.Abs(e.Y - lastPoint.Y)));
+                            pictureBox1.setPen(logic.getPen());
+                                pictureBox1.Invalidate();
+                               
+                                
+                                //graphics.DrawRectangle(logic.getPen(), x, y, Math.Abs(e.X - lastPoint.X),
+                                   // Math.Abs(e.Y - lastPoint.Y));
+          
+                        }
+                       // logic.draw(e);
+                       // pictureBox1.Refresh();
                     }
                     else
                     {
