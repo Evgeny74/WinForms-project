@@ -2,6 +2,6 @@
 {
     public enum DrawingItem
     {
-        Pen, Brush
+        Pen, Brush,Eraser,Triangle,Ellipse,Rectangle
     }
 }
