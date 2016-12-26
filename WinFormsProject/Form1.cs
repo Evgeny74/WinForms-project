@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using WinFormsProject.Logic;
 
@@ -11,17 +9,16 @@ namespace WinFormsProject
     public partial class Form1 : Form
     {
         private bool drawing = false;
-       
         private FormWindowState LastState;
         private BMPLogic logic;
-        private List<Image> bitmaps = new List<Image>();
         private int count = 0;
-        private Point point = new Point(-1,-1);
+        //private Point point = new Point(-1,-1);
         private ImageBox pictureBox1;
+
         public Form1()
         {
             pictureBox1 = new ImageBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.Location = new System.Drawing.Point(74, 98);
             this.pictureBox1.Name = "pictureBox1";
@@ -33,7 +30,6 @@ namespace WinFormsProject
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             this.Controls.Add(this.pictureBox1);
             InitializeComponent();
-            
             dataGridView1.Rows.Add();
             dataGridView1.Rows.Add();
             dataGridView1.Rows[0].Height = 15;
@@ -52,7 +48,7 @@ namespace WinFormsProject
             green.Text = "0";
             blue.Text = "0";
             LastState = WindowState;
-            logic = new BMPLogic(pictureBox1.Width,pictureBox1.Height);
+            logic = new BMPLogic(pictureBox1.Width, pictureBox1.Height);
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -67,35 +63,26 @@ namespace WinFormsProject
             {
                 try
                 {
-                    if (logic.GetDrawingItem() == DrawingItem.Rectangle)
+                    if (logic.GetDrawingItem() == DrawingItem.Rectangle || logic.GetDrawingItem() == DrawingItem.Ellipse ||
+                        logic.GetDrawingItem() == DrawingItem.Triangle)
                     {
-                        using (Graphics graphics = pictureBox1.CreateGraphics())
-                        {
-                                point.X = e.X;
-                                point.Y = e.Y;
-                                Point lastPoint = logic.getLastPoint();
-                                int x = Math.Min(lastPoint.X, e.X),
-                                    y = Math.Min(lastPoint.Y, e.Y);
-                                pictureBox1.setRectangle(new Rectangle(x,y, Math.Abs(e.X - lastPoint.X), Math.Abs(e.Y - lastPoint.Y)));
-                            pictureBox1.setPen(logic.getPen());
-                                pictureBox1.Invalidate();
-                               
-                                
-                                //graphics.DrawRectangle(logic.getPen(), x, y, Math.Abs(e.X - lastPoint.X),
-                                   // Math.Abs(e.Y - lastPoint.Y));
-          
-                        }
-                       // logic.draw(e);
-                       // pictureBox1.Refresh();
+                        Point lastPoint = logic.getLastPoint();
+                        int x = Math.Min(lastPoint.X, e.X),
+                            y = Math.Min(lastPoint.Y, e.Y);
+                        pictureBox1.setRectangle(
+                            new Rectangle(x, y, Math.Abs(e.X - lastPoint.X), Math.Abs(e.Y - lastPoint.Y)),
+                            logic.GetDrawingItem());
+                        pictureBox1.setPen(logic.getPen());
+                        pictureBox1.Invalidate();
                     }
                     else
                     {
                         logic.draw(e);
                         pictureBox1.Refresh();
                     }
-                    
+
                 }
-                catch (Exception exc)
+                catch (Exception)
                 {
                 }
             }
@@ -108,18 +95,15 @@ namespace WinFormsProject
                 pictureBox1.Image = logic.finishDrawing(e);
                 drawing = false;
             }
-            
-            Thread.Sleep(20);
-            bitmaps.Clear();
         }
 
         private void Form1_ResizeEnd(object sender, System.EventArgs e)
         {
             pictureBox1.Size = new Size(Size.Width - 90, Size.Height - 137);
-            pictureBox1.Image = logic.onResizeEnd(e,pictureBox1.Size);
+            pictureBox1.Image = logic.onResizeEnd(e, pictureBox1.Size);
         }
 
-        
+
 
         private void pictureBox3_MouseUp(object sender, MouseEventArgs e)
         {
@@ -139,10 +123,7 @@ namespace WinFormsProject
 
         private void dataGridView1_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
-            //DataGridView view = (DataGridView) sender;
             logic.chooseColor(e);
-            
-
         }
 
         private void pictureBox4_MouseUp(object sender, MouseEventArgs e)
@@ -157,7 +138,7 @@ namespace WinFormsProject
         {
             try
             {
-                int width = Int32.Parse(((TextBox)sender).Text);
+                int width = Int32.Parse(((TextBox) sender).Text);
                 logic.onWidthChanged(width);
             }
             catch (Exception exc)
@@ -219,7 +200,7 @@ namespace WinFormsProject
             {
                 pictureBox1.Image = logic.openBMP();
                 pictureBox1.Size = pictureBox1.Image.Size;
-                Size = new Size(pictureBox1.Width + 90,pictureBox1.Height + 137);
+                Size = new Size(pictureBox1.Width + 90, pictureBox1.Height + 137);
             }
             catch (Exception exc)
             {
@@ -241,6 +222,25 @@ namespace WinFormsProject
             logic.chooseTriangle();
         }
 
-        
+        protected override bool ProcessCmdKey(ref Message message, Keys keys)
+        {
+
+            switch (keys)
+            {
+                case Keys.Control | Keys.Z:
+                {
+                    pictureBox1.Image = logic.getPrevious();
+                    pictureBox1.Refresh();
+                    Size size = new Size(pictureBox1.Image.Width + 90, pictureBox1.Height + 137);
+                    Size = new Size(pictureBox1.Image.Width + 90, pictureBox1.Image.Height + 137);
+                        //this.ch
+                        pictureBox1.Size = pictureBox1.Image.Size;
+
+                    return true;
+                }
+            }
+            return base.ProcessCmdKey(ref message, keys);
+        }
+
     }
 }

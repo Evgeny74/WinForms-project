@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -18,6 +20,7 @@ namespace WinFormsProject.Logic
         private Bitmap bmp;
         private Graphics fileGraphics;
         private Bitmap currentBitmap;
+        private List<Bitmap> oldBitmaps = new List<Bitmap>();
 
         public BMPLogic(int Width,int Height)
         {
@@ -28,23 +31,24 @@ namespace WinFormsProject.Logic
                     bmp.SetPixel(i,j,Color.White);
             graphics = Graphics.FromImage(bmp);
             drawingItem = DrawingItem.Pen;
+            oldBitmaps.Add((Bitmap)bmp.Clone());
         }
 
         public Bitmap startDrawing(MouseEventArgs e)
         {
             lastPoint.X = e.X;
             lastPoint.Y = e.Y;
-            if (drawingItem != DrawingItem.Eraser)
-                graphics.FillEllipse(solidBrush, new Rectangle((int)(e.Location.X - pen.Width / 2), (int)(e.Location.Y - pen.Width / 2), (int)pen.Width, (int)pen.Width));
-            else
-                graphics.FillEllipse(whiteBrush, new Rectangle((int)(e.Location.X - pen.Width / 2), (int)(e.Location.Y - pen.Width / 2), (int)pen.Width, (int)pen.Width));
-            if (drawingItem == DrawingItem.Rectangle)
+            switch (drawingItem)
             {
-                if (currentBitmap != null)
-                    currentBitmap.Dispose();
-                currentBitmap = new Bitmap(bmp);
-                return currentBitmap;
-            }
+                case DrawingItem.Eraser:
+                    graphics.FillEllipse(whiteBrush, new Rectangle((int)(e.Location.X - pen.Width / 2), (int)(e.Location.Y - pen.Width / 2), (int)pen.Width, (int)pen.Width));
+                    break;
+                case DrawingItem.Brush:
+                case DrawingItem.Pen:
+                    graphics.FillEllipse(solidBrush, new Rectangle((int)(e.Location.X - pen.Width / 2), (int)(e.Location.Y - pen.Width / 2), (int)pen.Width, (int)pen.Width));
+                    break;
+
+            }    
             return bmp;
         }
 
@@ -66,21 +70,6 @@ namespace WinFormsProject.Logic
                     graphics.FillEllipse(whiteBrush, new Rectangle((int)(e.Location.X - pen.Width / 2), (int)(e.Location.Y - pen.Width / 2), (int)pen.Width, (int)pen.Width));
                     lastPoint.X = e.X;
                     lastPoint.Y = e.Y;
-                    break;
-                case DrawingItem.Rectangle:
-                    int x = Math.Min(lastPoint.X, e.X),
-                        y = Math.Min(lastPoint.Y, e.Y),
-                        xMax = Math.Max(lastPoint.X, e.X),
-                        yMax = Math.Max(lastPoint.Y, e.Y);
-                    for (int i = 0; i < currentBitmap.Width; i++)
-                        for (int j = 0; j <= currentBitmap.Height; j++)
-                            currentBitmap.SetPixel(i,j,bmp.GetPixel(i,j));
-                    
-                    using (Graphics graphic = Graphics.FromImage(currentBitmap))
-                    {
-                        
-                        graphic.DrawRectangle(pen, x, y, Math.Abs(e.X - lastPoint.X), Math.Abs(e.Y - lastPoint.Y));
-                    }
                     break;
             }
 
@@ -107,6 +96,27 @@ namespace WinFormsProject.Logic
                         y = Math.Min(lastPoint.Y, e.Y);
                     graphics.DrawRectangle(pen, x, y, Math.Abs(e.X - lastPoint.X), Math.Abs(e.Y - lastPoint.Y));
                     break;
+                case DrawingItem.Ellipse:
+                    x = Math.Min(lastPoint.X, e.X);
+                    y = Math.Min(lastPoint.Y, e.Y);
+                    graphics.DrawEllipse(pen, x, y, Math.Abs(e.X - lastPoint.X), Math.Abs(e.Y - lastPoint.Y));
+                    break;
+                case DrawingItem.Triangle:
+                    x = Math.Min(lastPoint.X, e.X);
+                    y = Math.Min(lastPoint.Y, e.Y);
+                    int xMax = Math.Max(lastPoint.X, e.X);
+                    int yMax = Math.Max(lastPoint.Y, e.Y);
+                    graphics.DrawLine(pen,x+(Math.Abs(e.X - lastPoint.X))/2,y,x,yMax);
+                    graphics.DrawLine(pen, x + (Math.Abs(e.X - lastPoint.X)) / 2, y,xMax,yMax);
+                    graphics.DrawLine(pen,x,yMax,xMax,yMax);
+                    break;
+            }
+            if (oldBitmaps.Count < 100)
+                oldBitmaps.Add((Bitmap)bmp.Clone());
+            else
+            {
+                oldBitmaps.Remove(oldBitmaps[0]);
+                oldBitmaps.Add((Bitmap)bmp.Clone());
             }
             return bmp;
         }
@@ -359,5 +369,29 @@ namespace WinFormsProject.Logic
             return lastPoint;
         }
 
+        public Bitmap getPrevious()
+        {
+            if (oldBitmaps.Count > 1 && oldBitmaps[oldBitmaps.Count - 1]!=null)
+            {
+                bmp.Dispose();
+                bmp = (Bitmap)oldBitmaps[oldBitmaps.Count - 2].Clone();
+                oldBitmaps[oldBitmaps.Count-1].Dispose();
+                oldBitmaps.Remove(oldBitmaps[oldBitmaps.Count - 1]);
+                graphics.Dispose();
+                graphics = Graphics.FromImage(bmp);
+
+            }
+            return bmp;
+        }
+
+        public List<Bitmap> GetBitmaps()
+        {
+            return oldBitmaps;
+        }
+
+        public Bitmap getBitmap(int index)
+        {
+            return oldBitmaps[index];
+        }
     }
 }

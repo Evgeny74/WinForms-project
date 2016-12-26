@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewImageColumn();
@@ -50,10 +51,8 @@
             this.ellipse = new System.Windows.Forms.PictureBox();
             this.rectangle = new System.Windows.Forms.PictureBox();
             this.eraserBox = new System.Windows.Forms.PictureBox();
-            this.Column1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.penBox = new System.Windows.Forms.PictureBox();
             this.brushBox = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.triangle)).BeginInit();
@@ -107,6 +106,16 @@
             this.dataGridView1.Size = new System.Drawing.Size(90, 60);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
+            // 
+            // Column1
+            // 
+            this.Column1.Frozen = true;
+            this.Column1.HeaderText = "";
+            this.Column1.Image = global::WinFormsProject.Properties.Resources.brush;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.Width = 15;
             // 
             // Column2
             // 
@@ -268,16 +277,6 @@
             this.eraserBox.TabStop = false;
             this.eraserBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox4_MouseUp);
             // 
-            // Column1
-            // 
-            this.Column1.Frozen = true;
-            this.Column1.HeaderText = "";
-            this.Column1.Image = global::WinFormsProject.Properties.Resources.brush;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.Width = 15;
-            // 
             // penBox
             // 
             this.penBox.Image = global::WinFormsProject.Properties.Resources.pen;
@@ -298,19 +297,11 @@
             this.brushBox.TabStop = false;
             this.brushBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(17, 273);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(50, 20);
-            this.textBox1.TabIndex = 17;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(395, 394);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.triangle);
             this.Controls.Add(this.ellipse);
             this.Controls.Add(this.rectangle);
@@ -326,6 +317,7 @@
             this.Controls.Add(this.brushBox);
             this.Controls.Add(this.menuStrip1);
             this.ForeColor = System.Drawing.SystemColors.Control;
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -369,7 +361,6 @@
         private System.Windows.Forms.PictureBox rectangle;
         private System.Windows.Forms.PictureBox ellipse;
         private System.Windows.Forms.PictureBox triangle;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
