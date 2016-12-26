@@ -6,12 +6,16 @@ using System.Windows.Forms;
 
 namespace WinFormsProject
 {
+    /// <summary>
+    /// Класс для созъхранения и открытия рисунков
+    /// </summary>
     class SaveAndOpenDialog
     {
-        public SaveAndOpenDialog()
-        {
-        }
-
+        /// <summary>
+        /// Сохранение рисунка
+        /// </summary>
+        /// <param name="bmpToSave">Рисунок</param>
+        /// <returns>True, если сохранил</returns>
         public bool saveBMP(Bitmap bmpToSave)
         {
             SaveFileDialog saveDialog = new SaveFileDialog();
@@ -34,7 +38,10 @@ namespace WinFormsProject
             }
             return false;
         }
-
+        /// <summary>
+        /// Открытие рисунка
+        /// </summary>
+        /// <returns>Рисунок</returns>
         public Bitmap openBMP()
         {
             OpenFileDialog openDialog = new OpenFileDialog();

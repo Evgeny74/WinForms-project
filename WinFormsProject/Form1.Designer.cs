@@ -31,14 +31,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.colors = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.label1 = new System.Windows.Forms.Label();
+            this.width = new System.Windows.Forms.Label();
             this.widthTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.rgb = new System.Windows.Forms.Label();
             this.red = new System.Windows.Forms.TextBox();
             this.green = new System.Windows.Forms.TextBox();
             this.blue = new System.Windows.Forms.TextBox();
@@ -53,7 +53,7 @@
             this.eraserBox = new System.Windows.Forms.PictureBox();
             this.penBox = new System.Windows.Forms.PictureBox();
             this.brushBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colors)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.triangle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ellipse)).BeginInit();
@@ -85,27 +85,27 @@
             this.imageList1.Images.SetKeyName(15, "ellipse.png");
             this.imageList1.Images.SetKeyName(16, "rectangle.png");
             // 
-            // dataGridView1
+            // colors
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.ColumnHeadersVisible = false;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colors.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.colors.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.colors.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.colors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.colors.ColumnHeadersVisible = false;
+            this.colors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
             this.Column4});
-            this.dataGridView1.Location = new System.Drawing.Point(136, 32);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowTemplate.ReadOnly = true;
-            this.dataGridView1.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.Size = new System.Drawing.Size(90, 60);
-            this.dataGridView1.TabIndex = 5;
-            this.dataGridView1.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
+            this.colors.Location = new System.Drawing.Point(136, 32);
+            this.colors.Name = "colors";
+            this.colors.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.colors.RowHeadersVisible = false;
+            this.colors.RowTemplate.ReadOnly = true;
+            this.colors.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colors.Size = new System.Drawing.Size(90, 60);
+            this.colors.TabIndex = 5;
+            this.colors.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.colors_CellMouseUp);
             // 
             // Column1
             // 
@@ -141,15 +141,15 @@
             this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Column4.Width = 15;
             // 
-            // label1
+            // width
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(14, 202);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Толщина";
+            this.width.AutoSize = true;
+            this.width.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.width.Location = new System.Drawing.Point(14, 202);
+            this.width.Name = "width";
+            this.width.Size = new System.Drawing.Size(53, 13);
+            this.width.TabIndex = 7;
+            this.width.Text = "Толщина";
             // 
             // widthTextBox
             // 
@@ -157,17 +157,17 @@
             this.widthTextBox.Name = "widthTextBox";
             this.widthTextBox.Size = new System.Drawing.Size(50, 20);
             this.widthTextBox.TabIndex = 8;
-            this.widthTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.widthTextBox.TextChanged += new System.EventHandler(this.width_TextChanged);
             // 
-            // label2
+            // rgb
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(12, 89);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "RGB цвет";
+            this.rgb.AutoSize = true;
+            this.rgb.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.rgb.Location = new System.Drawing.Point(12, 89);
+            this.rgb.Name = "rgb";
+            this.rgb.Size = new System.Drawing.Size(56, 13);
+            this.rgb.TabIndex = 9;
+            this.rgb.Text = "RGB цвет";
             // 
             // red
             // 
@@ -215,16 +215,16 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
-            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.openFile);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.saveFile);
             // 
             // dataGridViewImageColumn1
             // 
@@ -275,7 +275,7 @@
             this.eraserBox.Size = new System.Drawing.Size(25, 25);
             this.eraserBox.TabIndex = 6;
             this.eraserBox.TabStop = false;
-            this.eraserBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox4_MouseUp);
+            this.eraserBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.eraser_MouseUp);
             // 
             // penBox
             // 
@@ -285,7 +285,7 @@
             this.penBox.Size = new System.Drawing.Size(25, 25);
             this.penBox.TabIndex = 4;
             this.penBox.TabStop = false;
-            this.penBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox3_MouseUp);
+            this.penBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.penBox_MouseUp);
             // 
             // brushBox
             // 
@@ -295,7 +295,7 @@
             this.brushBox.Size = new System.Drawing.Size(25, 25);
             this.brushBox.TabIndex = 3;
             this.brushBox.TabStop = false;
-            this.brushBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
+            this.brushBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.brushBox_MouseUp);
             // 
             // Form1
             // 
@@ -308,11 +308,11 @@
             this.Controls.Add(this.blue);
             this.Controls.Add(this.green);
             this.Controls.Add(this.red);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.rgb);
             this.Controls.Add(this.widthTextBox);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.width);
             this.Controls.Add(this.eraserBox);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.colors);
             this.Controls.Add(this.penBox);
             this.Controls.Add(this.brushBox);
             this.Controls.Add(this.menuStrip1);
@@ -323,7 +323,7 @@
             this.Text = "Form1";
             this.ResizeEnd += new System.EventHandler(this.Form1_ResizeEnd);
             this.Resize += new System.EventHandler(this.Form1_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colors)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.triangle)).EndInit();
@@ -341,16 +341,16 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox brushBox;
         private System.Windows.Forms.PictureBox penBox;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView colors;
         private System.Windows.Forms.DataGridViewImageColumn Column1;
         private System.Windows.Forms.DataGridViewImageColumn Column2;
         private System.Windows.Forms.DataGridViewImageColumn Column3;
         private System.Windows.Forms.DataGridViewImageColumn Column4;
         private System.Windows.Forms.PictureBox eraserBox;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label width;
         private System.Windows.Forms.TextBox widthTextBox;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label rgb;
         private System.Windows.Forms.TextBox red;
         private System.Windows.Forms.TextBox green;
         private System.Windows.Forms.TextBox blue;

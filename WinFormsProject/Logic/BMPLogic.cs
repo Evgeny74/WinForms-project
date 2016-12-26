@@ -6,22 +6,56 @@ using System.Windows.Forms;
 
 namespace WinFormsProject.Logic
 {
-    
-    class BMPLogic
+    /// <summary>
+    /// Класс логики рисования
+    /// </summary>
+    public class BMPLogic
     {
+        /// <summary>
+        /// Кисть
+        /// </summary>
         private Brush solidBrush = new SolidBrush(Color.Black);
+        /// <summary>
+        /// Перо
+        /// </summary>
         private Pen pen = new Pen(Color.Black, 5);
+        /// <summary>
+        /// Ластик
+        /// </summary>
         private Pen eraser = new Pen(Color.White, 5);
+        /// <summary>
+        /// Белая кисть
+        /// </summary>
         private SolidBrush whiteBrush = new SolidBrush(Color.White);
+        /// <summary>
+        /// Объект класса Garphics
+        /// </summary>
         private Graphics graphics;
+        /// <summary>
+        /// Предыдущая точка
+        /// </summary>
         private Point lastPoint;
+        /// <summary>
+        /// Что сейчас рисовать
+        /// </summary>
         private DrawingItem drawingItem;
+        /// <summary>
+        /// Текущий цвет
+        /// </summary>
         private Color color = Color.Black;
+        /// <summary>
+        /// Текущий рисунок
+        /// </summary>
         private Bitmap bmp;
-        private Graphics fileGraphics;
-        private Bitmap currentBitmap;
+        /// <summary>
+        /// Предыдущие версии рисунка
+        /// </summary>
         private List<Bitmap> oldBitmaps = new List<Bitmap>();
-
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="Width">Ширина рисуунка</param>
+        /// <param name="Height">Высота рисунка</param>
         public BMPLogic(int Width,int Height)
         {
             lastPoint = new Point();
@@ -33,7 +67,11 @@ namespace WinFormsProject.Logic
             drawingItem = DrawingItem.Pen;
             oldBitmaps.Add((Bitmap)bmp.Clone());
         }
-
+        /// <summary>
+        /// Начало рисования
+        /// </summary>
+        /// <param name="e">Параметры</param>
+        /// <returns>Рисунок</returns>
         public Bitmap startDrawing(MouseEventArgs e)
         {
             lastPoint.X = e.X;
@@ -51,7 +89,10 @@ namespace WinFormsProject.Logic
             }    
             return bmp;
         }
-
+        /// <summary>
+        /// Рисование
+        /// </summary>
+        /// <param name="e">Параметры</param>
         public void draw(MouseEventArgs e)
         {
             switch (drawingItem)
@@ -76,7 +117,11 @@ namespace WinFormsProject.Logic
         }
 
         
-
+        /// <summary>
+        /// Конец рисования
+        /// </summary>
+        /// <param name="e">Параметры</param>
+        /// <returns>Рисунок</returns>
         public Bitmap finishDrawing(MouseEventArgs e)
         {
            
@@ -120,7 +165,12 @@ namespace WinFormsProject.Logic
             }
             return bmp;
         }
-
+        /// <summary>
+        /// Метод, меняющий размер рисунка
+        /// </summary>
+        /// <param name="e">Параметры</param>
+        /// <param name="size">Размер</param>
+        /// <returns>Рисунок</returns>
         public Bitmap onResizeEnd(EventArgs e,Size size)
         {
             Bitmap oldBmp = bmp;
@@ -145,22 +195,31 @@ namespace WinFormsProject.Logic
             graphics = Graphics.FromImage(bmp);
             return bmp;
         }
-
+        /// <summary>
+        /// Выбор пера
+        /// </summary>
         public void choosePen()
         {
             drawingItem = DrawingItem.Pen;
         }
-
+        /// <summary>
+        /// Выбор кисти
+        /// </summary>
         public void chooseBrush()
         {
             drawingItem = DrawingItem.Brush;
         }
-
+        /// <summary>
+        /// Выбор ластика
+        /// </summary>
         public void chooseEraser()
         {
             drawingItem = DrawingItem.Eraser;
         }
-
+        /// <summary>
+        /// Выбор цвета
+        /// </summary>
+        /// <param name="e">Параметры</param>
         public void chooseColor(DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex == 0)
@@ -216,13 +275,19 @@ namespace WinFormsProject.Logic
                 }
             }
         }
-
+        /// <summary>
+        /// Изменение ширины пера, кисти и так далее
+        /// </summary>
+        /// <param name="width">Ширина</param>
         public void onWidthChanged(int width)
         {
             pen.Width = width;
             eraser.Width = width;
         }
-
+        /// <summary>
+        /// Изменение красной части
+        /// </summary>
+        /// <param name="sender">Объект-отправитель</param>
         public void onChangeRedPart(Object sender)
         {
             try
@@ -248,7 +313,10 @@ namespace WinFormsProject.Logic
             }
         }
 
-
+        /// <summary>
+        /// Изменение зеленой части цвета
+        /// </summary>
+        /// <param name="sender">Объект-отправитель</param>
         public void onChangeGreenPart(Object sender)
         {
             try
@@ -273,7 +341,10 @@ namespace WinFormsProject.Logic
             {
             }
         }
-
+        /// <summary>
+        /// Изменение синей части цвета
+        /// </summary>
+        /// <param name="sender">Объект-отправитель</param>
         public void onChangeBluePart(Object sender)
         {
             try
@@ -298,7 +369,11 @@ namespace WinFormsProject.Logic
             {
             }
         }
-
+        /// <summary>
+        /// Изменение размера рисунка
+        /// </summary>
+        /// <param name="size">Размер</param>
+        /// <returns>Рисунок</returns>
         public Bitmap onResize(Size size)
         {
             if (size.Width > 0 && size.Height > 0)
@@ -321,13 +396,19 @@ namespace WinFormsProject.Logic
             }
             return bmp;
         }
-
+        /// <summary>
+        /// Сохранение рисунка
+        /// </summary>
+        /// <returns>True, если удалось</returns>
         public bool saveBMP()
         {
             SaveAndOpenDialog saveDialog = new SaveAndOpenDialog();
             return saveDialog.saveBMP(bmp);
         }
-
+        /// <summary>
+        /// Открытие рисунка
+        /// </summary>
+        /// <returns>Рисунок</returns>
         public Bitmap openBMP()
         {
             SaveAndOpenDialog openDialog = new SaveAndOpenDialog();
@@ -338,37 +419,55 @@ namespace WinFormsProject.Logic
             }
             return bmp;
         }
-
+        /// <summary>
+        /// Выбор прямоугольника
+        /// </summary>
         public void chooseRectangle()
         {
             drawingItem = DrawingItem.Rectangle;
         }
-
+        /// <summary>
+        /// Выбор эллипса
+        /// </summary>
         public void chooseEllipse()
         {
             drawingItem = DrawingItem.Ellipse;
         }
-
+        /// <summary>
+        /// Выбор треугольника
+        /// </summary>
         public void chooseTriangle()
         {
             drawingItem = DrawingItem.Triangle;
         }
-
+        /// <summary>
+        /// Получение типа инструмента рисования
+        /// </summary>
+        /// <returns></returns>
         public DrawingItem GetDrawingItem()
         {
             return drawingItem;
         }
-
+        /// <summary>
+        /// Геттер пера
+        /// </summary>
+        /// <returns>Перо</returns>
         public Pen getPen()
         {
             return pen;
         }
-
+        /// <summary>
+        /// Геттер предыдущей точки
+        /// </summary>
+        /// <returns>Предыдущая точка</returns>
         public Point getLastPoint()
         {
             return lastPoint;
         }
-
+        /// <summary>
+        /// Получение предыдущей версии рисунка
+        /// </summary>
+        /// <returns>Рисунок</returns>
         public Bitmap getPrevious()
         {
             if (oldBitmaps.Count > 1 && oldBitmaps[oldBitmaps.Count - 1]!=null)
@@ -383,15 +482,13 @@ namespace WinFormsProject.Logic
             }
             return bmp;
         }
-
-        public List<Bitmap> GetBitmaps()
+        /// <summary>
+        /// Получение текущего рисунка
+        /// </summary>
+        /// <returns>Рисунок</returns>
+        public Bitmap getBitmap()
         {
-            return oldBitmaps;
-        }
-
-        public Bitmap getBitmap(int index)
-        {
-            return oldBitmaps[index];
+            return bmp;
         }
     }
 }
